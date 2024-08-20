@@ -69,4 +69,11 @@ public class BasicController {
     public String deleteMethod() {
         return "DELETE Method";
     }
+
+    // Method + URL Pattern이 중복되면 서버 실행중에 에러가 발생
+    // @GetMapping("/first")
+    // public String getFirst() {
+    //     return "get first";
+    // }
+    
 }
