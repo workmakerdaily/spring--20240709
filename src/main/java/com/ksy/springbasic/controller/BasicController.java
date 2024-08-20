@@ -32,5 +32,9 @@ public class BasicController {
 
     // HTTP GET method : 클라이언트가 서버로부터 데이터를 받기위한 메서드
     // Request Body가 존재하지 않음
+    
+    // HTTP POST method : 클라이언트가 서버에 리소스를 작성하기 위한 메서드
+    // Request Body가 존재함
 
+    // HTTP PUT method : 클라이언트가 서버에 리소스를 전체 수정하기 위한 메서드
 }
