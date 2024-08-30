@@ -9,6 +9,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -44,6 +45,8 @@ public class JwtProvider {
     // - OS 부팅시에 Vault 서버에서 비밀키를 가져와 사용
     // - OS 매 부팅시 새로운 비밀키를 부여함
 
+    
+
     public String create(String name) {
 
         // JWT의 만료일자 및 시간
@@ -71,4 +74,27 @@ public class JwtProvider {
 
     }
 
+    public String validate(String jwt) {
+
+        // jwt 검증 결과로 반환되는 payload가 저장될 변수
+        Claims claims = null;
+
+        // 비밀키 생성
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+
+        try {
+            // 비밀키를 이용하여 jwt를 검증 작업
+            claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(jwt)
+                .getBody();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+
+        return claims.getSubject();
+
+    }
 }
